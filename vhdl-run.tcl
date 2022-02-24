@@ -48,7 +48,9 @@ if {$argc > 0} {
             }
         }
     }
-    lappend non_tb $tb
+    foreach testbench $tb {
+        lappend non_tb $testbench
+    }
     exec ghdl --clean
     foreach file $non_tb {
         set tail [file tail $file]
@@ -57,7 +59,6 @@ if {$argc > 0} {
             if {[catch {exec -ignorestderr ghdl -a $ghdlArgs $file} result] != 0} { 
                 puts "Error in $file"
                 puts "To view errors run: ghdl -a $ghdlArgs $file"
-                exit 1
             } else { 
                 puts "$file OK"
                 lappend completedFiles $tail
