@@ -48,9 +48,10 @@ if {$argc > 0} {
             }
         }
     }
-    foreach testbench $tb {
-        lappend non_tb $testbench
-    }
+	set non_tb [lreverse $non_tb]
+	set tb [lreverse $tb]
+	set non_tb [concat $non_tb $tb] 
+	puts $non_tb
     exec ghdl --clean
     foreach file $non_tb {
         set tail [file tail $file]
